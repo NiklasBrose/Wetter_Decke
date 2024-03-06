@@ -1,0 +1,24 @@
+package com.example.wetterdecke
+
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+
+@Composable
+fun Navigation() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = Screen.HomeScreen.route){
+        composable(route = Screen.TempListScreen.route){
+            TempListScreen(navController = navController)
+        }
+        composable(route = Screen.HomeScreen.route){
+            HomeScreen(navController = navController)
+        }
+        composable(route = Screen.SettingsScreen.route){
+            SettingsScreen(navController = navController)
+        }
+    }
+}
