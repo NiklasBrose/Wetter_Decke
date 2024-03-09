@@ -3,6 +3,6 @@
 
     <string name="homescreen">Home</string>
     <string name="settingsscreen">Settings</string>
-    <string name="tempdatascreen">TempData</string>
+    <string name="tempdatascreen">Temp Data</string>
 
 </resources>

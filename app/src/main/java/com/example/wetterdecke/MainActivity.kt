@@ -3,9 +3,11 @@ package com.example.wetterdecke
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
@@ -19,8 +21,10 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,7 +50,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
 data class NavigationBottomBarData(val label:String, val id: ImageVector)
 
 
@@ -64,7 +67,7 @@ private fun getNavigationBarItems():List<NavigationBottomBarData> {
     ))
 
     return list
-}  // getNavigationBarItenms
+}  // getNavigationBarItems
 
 @Composable
 fun Bottombar() {
@@ -72,11 +75,11 @@ fun Bottombar() {
     val selectedItemIndex = remember { mutableStateOf( 1 ) }
 
     val bottombarColors = NavigationBarItemDefaults.colors(
-        Color.Red,  // selected Icon Color
-        Color.Blue, // selected Text Color
-        Color.Cyan,  // indicatorColor
+        Color.Black,  // selected Icon Color
+        Color.Black, // selected Text Color
+        Color.Unspecified, // indicatorColor
         Color.DarkGray, // unselected Icon Color
-        Color.Black // unselected Text Color
+        Color.White // unselected Text Color
     )
 
     Box(
@@ -99,7 +102,8 @@ fun Bottombar() {
         NavigationBar(
             modifier = Modifier
                 .padding(8.dp)
-                .align(alignment = Alignment.BottomCenter)
+                .align(alignment = Alignment.BottomCenter),
+            containerColor = Color.Gray
         ) {
             // for loop über alle Schalter
             navigationBottomBarDataList.forEachIndexed{ index, item ->
@@ -122,6 +126,4 @@ fun Bottombar() {
             } // forEachIndexed
         }
     }  // Box
-
-
 }
