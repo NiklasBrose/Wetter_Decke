@@ -18,7 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun HomeScreen(
+fun TempDataScreen(
     modifier: Modifier = Modifier,
 ){
     Column (modifier = modifier){
@@ -31,7 +31,7 @@ fun HomeScreen(
             .border(10.dp, Color.Black, CircleShape)
         ){
             Text(modifier = Modifier.align(Alignment.Center),
-                text = "2024-01-27\n\n", color = Color.Black, fontSize = 30.sp)
+                text = "TempData\n\n", color = Color.Black, fontSize = 30.sp)
             Text(modifier = Modifier.align(Alignment.Center),
                 text = "\n\n10,12°C", color = Color.Black, fontSize = 40.sp)
         }

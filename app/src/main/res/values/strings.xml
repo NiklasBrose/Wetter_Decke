@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Wetter Decke</string>
+
+    <string name="homescreen">Home</string>
+    <string name="settingsscreen">Settings</string>
+    <string name="tempdatascreen">TempData</string>
+
 </resources>

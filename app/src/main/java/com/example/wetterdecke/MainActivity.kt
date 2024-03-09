@@ -4,103 +4,124 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.findNavController
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.wetterdecke.ui.theme.WetterDeckeTheme
 
-data class BottomNavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val route: String,
-)
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             WetterDeckeTheme {
-                val items = listOf(
-                    BottomNavigationItem(
-                        title = "TempList",
-                        selectedIcon = Icons.Filled.Home,
-                        unselectedIcon = Icons.Outlined.Home,
-                        route = Screen.TempListScreen.route,
-                    ),
-                    BottomNavigationItem(
-                        title = "Home",
-                        selectedIcon = Icons.Filled.Home,
-                        unselectedIcon = Icons.Outlined.Home,
-                        route = Screen.HomeScreen.route
-                    ),
-                    BottomNavigationItem(
-                        title = "Settings",
-                        selectedIcon = Icons.Filled.Settings,
-                        unselectedIcon = Icons.Outlined.Settings,
-                        route = Screen.SettingsScreen.route
-                    ),
-                )
-                var selectedItemIndex by rememberSaveable {
-                    mutableIntStateOf(0)
-                }
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Color.LightGray
                 ) {
-                    Scaffold (modifier = Modifier,
-                        containerColor = Color.LightGray,
-                        bottomBar = {
-                        NavigationBar{
-                            items.forEachIndexed { index, item ->
-                                NavigationBarItem(
-                                    selected = selectedItemIndex == index,
-                                    onClick = {
-                                        selectedItemIndex = index
-                                        //navController.navigate(item.route)
-                                    },
-                                    label = {
-                                        Text(text = item.title)
-                                    },
-                                    icon = {
-                                        Box{
-                                            Icon(
-                                                imageVector = if (index == selectedItemIndex) {
-                                                    item.selectedIcon
-                                                } else item.unselectedIcon,
-                                                contentDescription = item.title
-                                            )
-                                        }
-                                    }
-                                )
-                            }
-                        }
-                    }){it
-                        Navigation()
-                    }
-                 }
+                    Bottombar()
+                }
             }
         }
     }
+}
+
+
+data class NavigationBottomBarData(val label:String, val id: ImageVector)
+
+
+@Composable
+private fun getNavigationBarItems():List<NavigationBottomBarData> {
+    val list=arrayListOf<NavigationBottomBarData>()
+
+    list.add( NavigationBottomBarData(stringResource(id = R.string.tempdatascreen), Icons.AutoMirrored.Filled.List
+    ))
+
+    list.add( NavigationBottomBarData(stringResource(id = R.string.homescreen),Icons.Filled.Home
+    ))
+
+    list.add( NavigationBottomBarData(stringResource(id = R.string.settingsscreen),Icons.Filled.Settings
+    ))
+
+    return list
+}  // getNavigationBarItenms
+
+@Composable
+fun Bottombar() {
+    val navigationBottomBarDataList = getNavigationBarItems()
+    val selectedItemIndex = remember { mutableStateOf( 1 ) }
+
+    val bottombarColors = NavigationBarItemDefaults.colors(
+        Color.Red,  // selected Icon Color
+        Color.Blue, // selected Text Color
+        Color.Cyan,  // indicatorColor
+        Color.DarkGray, // unselected Icon Color
+        Color.Black // unselected Text Color
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(bottom = 76.dp) // Bereich der Bottombar
+                .fillMaxSize()
+        ){
+            // switch case der Fragmente
+            when (selectedItemIndex.value) {
+                0 -> TempDataScreen()
+                1 -> HomeScreen()
+                2 -> SettingsScreen()
+                else -> Text("Fehlerhafte when-Anweisung(selectedItemIndex): "+   selectedItemIndex.value)
+            }  // when
+
+        } // Column
+        NavigationBar(
+            modifier = Modifier
+                .padding(8.dp)
+                .align(alignment = Alignment.BottomCenter)
+        ) {
+            // for loop über alle Schalter
+            navigationBottomBarDataList.forEachIndexed{ index, item ->
+                NavigationBarItem(
+                    label={
+                        Text(item.label)
+                    },
+                    colors=bottombarColors,
+                    selected = selectedItemIndex.value==index,
+                    onClick = {
+                        selectedItemIndex.value=index
+                    },
+                    icon = {
+                        Icon(item.id,
+                            contentDescription = ""
+                        )
+                    }
+                )  // NavigationBarItem
+
+            } // forEachIndexed
+        }
+    }  // Box
+
+
 }
