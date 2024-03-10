@@ -4,20 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,10 +26,10 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ){
     val TempList = getTemp()
-    var zahl = TempList.size
-    var datum = TempList[zahl-1]
-    var Datum by remember { mutableStateOf("\n\n\n${datum.datum}") }
-    var Temperatur by remember { mutableStateOf("\n${datum.temp}") }
+    val zahl = TempList.size
+    val datum = TempList[zahl-1]
+    val Datum by remember { mutableStateOf("\n\n\n${datum.datum}") }
+    val Temperatur by remember { mutableStateOf("\n${datum.temp}") }
     Column (modifier = modifier.fillMaxSize()){
         Box(modifier = modifier
             .padding(top = 60.dp)
@@ -53,8 +48,13 @@ fun HomeScreen(
         Box(modifier = modifier
             .padding(top = 20.dp)
             .size(250.dp, 80.dp)
-            .background(Color(getTempColor1(zahl = zahl),getTempColor2(zahl = zahl),getTempColor3(
-                zahl = zahl)))
+            .background(
+                Color(
+                    getTempColor1(zahl = zahl), getTempColor2(zahl = zahl), getTempColor3(
+                        zahl = zahl
+                    )
+                )
+            )
             .align(Alignment.CenterHorizontally)
             .border(3.dp, Color.Black)
         ){
