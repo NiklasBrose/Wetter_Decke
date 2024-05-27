@@ -2,6 +2,8 @@
 
 Wetterdecke ist ein Projekt zur Erfassung und Visualisierung von Temperaturdaten seit dem 25. Oktober 2023. Mit dieser Anwendung können Sie Temperaturdaten aufzeichnen, abhaken und die Farben der Visualisierungen nach Ihren Wünschen anpassen.
 
+#Ist noch in Arbeit
+
 ## Features
 
 - **Temperaturaufzeichnung**: Erfassen Sie Temperaturdaten seit dem 25. Oktober 2023.
