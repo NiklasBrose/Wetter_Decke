@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -52,7 +52,7 @@ data class NavigationBottomBarData(val label:String, val id: ImageVector)
 private fun getNavigationBarItems():List<NavigationBottomBarData> {
     val list=arrayListOf<NavigationBottomBarData>()
 
-    list.add( NavigationBottomBarData(stringResource(id = R.string.tempdatascreen), Icons.AutoMirrored.Filled.List
+    list.add( NavigationBottomBarData(stringResource(id = R.string.tempdatascreen), Icons.Filled.List
     ))
 
     list.add( NavigationBottomBarData(stringResource(id = R.string.homescreen),Icons.Filled.Home
