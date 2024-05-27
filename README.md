@@ -23,8 +23,4 @@ Wetterdecke ist ein Projekt zur Erfassung und Visualisierung von Temperaturdaten
 
 - Gehen Sie in die Einstellungen und wählen Sie die gewünschten Farben für die Temperaturvisualisierung aus.
 
-## Lizenz
-
-Dieses Projekt ist lizenziert unter der [MIT Lizenz](LICENSE).
-
 ---
